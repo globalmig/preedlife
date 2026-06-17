@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1B5EBF;
+  --color-primary-dark: #0A3070;
+  --color-primary-light: #4A90E2;
+  --color-sky-bg: #EBF4FF;
+  --color-badge: #2563EB;
+  --color-text-dark: #0F172A;
+  --color-text-gray: #64748B;
+  --font-sans: "Noto Sans KR", sans-serif;
+}
+
+@keyframes benefits-progress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+* {
+  box-sizing: border-box;
+  word-break: keep-all;
+}
+
+body {
+  background: #ffffff;
+  color: #0F172A;
+  font-family: "Noto Sans KR", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
