@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const notoSansKR = Noto_Sans_KR({
@@ -22,7 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={notoSansKR.className}>
-      <body className="min-h-full break-keep">{children}</body>
+      <body className="min-h-full break-keep">
+        {children}
+        <Script src="https://www.mig-analytics.com/one/fcf46cc4-71b2-4af6-92be-9f7468e2b60c.js" strategy="afterInteractive" />
+      </body>
     </html>
   );
 }
