@@ -13,23 +13,12 @@ export default function Home() {
     <main className="pt-13">
       <GNB />
 
-      {/* S1 - Hero */}
-      <HeroSection />
-
-      {/* S2 - 고객 혜택 캐러셀 (1~10) */}
-      <BenefitsCarousel />
-
-      {/* S5 - 이런 고객에게 추천 + 판매가 쉬운 이유 */}
-      <TargetCustomer />
-
-      {/* S6 - 수수료 안내 */}
-      <CommissionSection />
-
-      {/* S7 - 왜 프리드라이프인가 */}
-      <WhyPreed />
-
-      {/* S8 - 파트너 모집 CTA 배너 */}
-      <CTASection />
+      <div id="hero"><HeroSection /></div>
+      <div id="benefits"><BenefitsCarousel /></div>
+      <div id="sales"><TargetCustomer /></div>
+      <div id="commission"><CommissionSection /></div>
+      <div id="why"><WhyPreed /></div>
+      <div id="recruit"><CTASection /></div>
 
       {/* S9 - Footer */}
       <Footer />

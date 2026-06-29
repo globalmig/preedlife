@@ -16,6 +16,10 @@
   to   { width: 100%; }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
   word-break: keep-all;
