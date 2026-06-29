@@ -75,7 +75,7 @@ const slides = [
   { label: '혜택 6~10', items: allBenefits.slice(5, 10) },
 ]
 
-const DURATION = 5000
+const DURATION = 8000
 
 export default function BenefitsCarousel() {
   const [activeSlide, setActiveSlide] = useState(0)

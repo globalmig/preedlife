@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { ComponentType } from "react";
 import { LuBanknote, LuGift, LuHandshake } from "react-icons/lu";
@@ -23,10 +24,20 @@ export default function CTASection() {
   }, []);
 
   return (
-    <section className="bg-primary-dark px-5 py-20">
-      <div className="mx-auto max-w-md text-center">
+    <section className="relative overflow-hidden bg-primary-dark px-5 py-20">
+      {/* 은은한 가전 배경 이미지 */}
+      <div className="pointer-events-none absolute inset-0 flex items-end justify-center opacity-15">
+        <Image
+          src="/images/hero-product_2.png"
+          alt=""
+          fill
+          className="object-contain object-bottom"
+        />
+      </div>
+
+      <div className="relative mx-auto max-w-md text-center">
         <div className="mb-2 text-xs font-bold uppercase tracking-widest text-white/50">
-          woongjin PREED 웅진프리드라이프
+          PREED
         </div>
 
         <h2 className="mb-2 text-3xl font-black text-white leading-tight">
@@ -46,17 +57,17 @@ export default function CTASection() {
               <div
                 key={h.text}
                 className={`flex flex-col items-center gap-2.5 rounded-2xl px-2 py-4 transition-all duration-500 ${
-                  isActive ? "bg-white shadow-xl" : "bg-white/10"
+                  isActive ? "bg-white shadow-xl" : "bg-blue-900"
                 }`}
               >
                 <h.icon
                   className={`h-6 w-6 transition-colors duration-500 ${
-                    isActive ? "text-primary" : "text-white/40"
+                    isActive ? "text-primary" : "text-white"
                   }`}
                 />
                 <p
                   className={`text-xs font-bold leading-snug transition-colors duration-500 ${
-                    isActive ? "text-primary" : "text-white/50"
+                    isActive ? "text-primary" : "text-white"
                   }`}
                 >
                   {h.text}
@@ -72,17 +83,17 @@ export default function CTASection() {
         </div>
 
         {/* 마무리 멘트 */}
-        <div className="rounded-2xl bg-white/8 px-5 py-6 text-left space-y-4">
-          <p className="text-sm leading-relaxed text-white/80">
+        <div className="rounded-2xl bg-blue-900 px-5 py-6 text-left space-y-4">
+          <p className="text-sm leading-relaxed text-white">
             월 <span className="font-bold text-white">3~5구좌</span>만 판매해도 익월에
             <span className="font-bold text-primary-light"> 90만~200만원</span>이 통장으로 입금됩니다.
           </p>
-          <p className="text-sm leading-relaxed text-white/80">
+          <p className="text-sm leading-relaxed text-white">
             강제로 팔 필요 없습니다.
             고객이 <span className="font-bold text-white">가전제품을 먼저 받아가는 구조</span>라
             대화 시작 자체가 쉽습니다.
           </p>
-          <p className="text-sm leading-relaxed text-white/80">
+          <p className="text-sm leading-relaxed text-white">
             처음 시작하시는 분들도
             <span className="font-bold text-white"> 첫 달부터 수수료</span>를 받아가고 있어요.
             부담 없이 1:1로 먼저 여쭤보세요.

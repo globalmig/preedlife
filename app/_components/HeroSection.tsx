@@ -8,57 +8,81 @@ const tags = [
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-white px-5 pt-16 pb-20">
-      {/* 배경 원형 장식 */}
-      <div className="pointer-events-none absolute -top-20 -right-20 w-72 h-72 rounded-full opacity-20" style={{ background: "radial-gradient(circle, #4A90E2, transparent)" }} />
-      <div className="pointer-events-none absolute -bottom-16 -left-16 w-56 h-56 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #1B5EBF, transparent)" }} />
+    <section className="relative overflow-hidden px-5 pt-16 pb-20" style={{ background: "linear-gradient(150deg, #2196E8 0%, #1670D4 45%, #1055B8 100%)" }}>
+      {/* 대각선 그레이-흰색 도형 */}
+      <div className="pointer-events-none absolute inset-0">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <linearGradient id="whiteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#D8DFE8" />
+              <stop offset="100%" stopColor="#FFFFFF" />
+            </linearGradient>
+          </defs>
+          <polygon points="0,100 100,42 100,100" fill="url(#whiteGrad)" />
+        </svg>
+      </div>
 
       <div className="relative mx-auto max-w-md text-center">
         {/* 메인 헤드라인 */}
-        <h1 className="mb-3 text-4xl font-black = leading-tight text-text-dark">
+        <h1 className="mb-3 text-4xl font-black leading-tight text-white drop-shadow-md">
           프리드라이프
           <br />
-          <span className="text-primary">라이프케어(LC) 모집</span>
+          <span className="text-white/90">라이프케어(LC) 모집</span>
         </h1>
 
         {/* 수수료 배지 */}
-        <div className="my-6 inline-block rounded-full bg-badge px-5 py-2 text-sm font-bold text-white shadow-md">수수료 익월 즉시지급</div>
+        <div className="my-6 inline-block rounded-full bg-white/20 border border-white/40 px-5 py-2 text-sm font-bold text-white shadow-md backdrop-blur-sm">수수료 익월 즉시지급</div>
 
         {/* 상품 타입 태그 */}
-        <div className="mb-6 flex w-full items-center justify-center divide-x divide-gray-200">
+        <div className="mb-6 flex w-full items-center justify-center divide-x divide-white/30">
           {tags.map((item) => (
-            <span key={item.name} className="flex flex-col items-center justify-center gap-2 px-6 py-1.5 text-sm font-bold text-primary">
-              <Image src={item.icon} alt={item.name} width={40} height={40} />
+            <span key={item.name} className="flex flex-col items-center justify-center gap-2 px-6 py-1.5 text-sm font-bold text-white">
+              <Image src={item.icon} alt={item.name} width={40} height={40} style={{ filter: "brightness(0) invert(1)" }} />
               {item.name}
             </span>
           ))}
         </div>
 
-        {/* 제품 일러스트 영역 */}
-        <div className="mb-6 flex justify-center gap-4 py-4">
-          <div className="w-full max-w-[1440px]">
-            <Image src="/images/hero-product.png" alt="제품 일러스트" width={1352} height={1027} className="w-full" />
+        {/* 제품 + 인물 이미지 영역 */}
+        <div className="relative -mx-16" style={{ height: "480px" }}>
+          {/* 배경: 제품 이미지 */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Image
+              src="/images/hero-product_2.png"
+              alt="제품 배경"
+              width={900}
+              height={700}
+              className="w-full object-contain"
+            />
           </div>
-          {/* <ProductIcon icon="washer" label="세탁기" />
-          <ProductIcon icon="fridge" label="냉장고" />
-          <ProductIcon icon="tv" label="TV" />
-          <ProductIcon icon="chair" label="안마의자" /> */}
+          {/* 전경: 인물 이미지 */}
+          <Image
+            src="/images/hero_person.png"
+            alt="히어로 인물"
+            fill
+            className="object-contain object-bottom"
+          />
         </div>
 
         {/* 핵심 가치 요약 */}
-        <div className="mb-7 rounded-2xl bg-white/80 p-4 shadow-sm">
-          <div className="flex items-center justify-center gap-4 text-sm font-bold text-primary-dark">
-            <span className="flex items-center gap-1">
+        <div className="mb-7 rounded-2xl bg-white/80 px-4 py-3 shadow-sm">
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-xs font-bold text-primary-dark">
+            <span className="flex items-center gap-1 whitespace-nowrap">
               <CheckIcon />
               가전
             </span>
             <span className="text-text-gray">+</span>
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1 whitespace-nowrap">
               <CheckIcon />
               환급
             </span>
             <span className="text-text-gray">+</span>
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1 whitespace-nowrap">
               <CheckIcon />
               목적자금 준비
             </span>

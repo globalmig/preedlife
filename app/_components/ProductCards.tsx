@@ -6,7 +6,7 @@ const products = [
     alt: "가전결합상조 아이콘",
     title: "가전결합상조",
     badge: "가전결합상조",
-    subtitle: "프리미엄 540",
+    subtitle: "프리미엄 가전결합",
     headerBg: "bg-primary-dark",
     rows: [
       { label: "1구좌당", value: "30만", note: "기본 지급" },
