@@ -72,14 +72,16 @@ const reasons: { num: number; title: string; desc: string; icon: ReactNode }[] =
 
 export default function WhyPreed() {
   return (
-    <section className="overflow-hidden bg-sky-bg py-20">
+    <section className="overflow-hidden bg-sky-bg py-24 lg:py-32">
       <style>{`
         @keyframes why-marquee {
-          from { transform: translateX(0%); }
-          to   { transform: translateX(-50%); }
+          from { transform: translate3d(0%, 0, 0); }
+          to   { transform: translate3d(-50%, 0, 0); }
         }
         .why-track {
           animation: why-marquee 30s linear infinite;
+          will-change: transform;
+          backface-visibility: hidden;
         }
         .why-track:hover {
           animation-play-state: paused;
@@ -87,7 +89,7 @@ export default function WhyPreed() {
       `}</style>
 
       {/* 헤더 */}
-      <div className="mx-auto mb-10 max-w-md px-5 text-center">
+      <div className="mx-auto mb-14 max-w-md px-5 text-center">
         <div className="mb-1 text-xs font-bold uppercase tracking-widest text-primary-light">
           PREED 프리드라이프
         </div>
@@ -98,14 +100,14 @@ export default function WhyPreed() {
       {/* 무한 스크롤 트랙 */}
       <div className="overflow-hidden">
         <div className="why-track flex gap-4" style={{ width: "max-content" }}>
-          {[...reasons, ...reasons].map((r, i) => (
+          {[...reasons, ...reasons, ...reasons, ...reasons].map((r, i) => (
             <ReasonCard key={i} {...r} />
           ))}
         </div>
       </div>
 
       {/* 하단 슬로건 */}
-      <div className="mx-auto mt-10 max-w-md px-5 text-center">
+      <div className="mx-auto mt-14 max-w-md px-5 text-center">
         <div className="inline-flex items-center gap-2 rounded-2xl bg-primary-dark px-6 py-4">
           <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

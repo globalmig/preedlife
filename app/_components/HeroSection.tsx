@@ -8,7 +8,37 @@ const tags = [
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden px-5 pt-16 pb-20" style={{ background: "linear-gradient(150deg, #2196E8 0%, #1670D4 45%, #1055B8 100%)" }}>
+    <section
+      className="relative overflow-hidden px-5 pt-16 pb-10 md:pb-16 lg:px-16 lg:pt-28 lg:pb-0"
+      style={{ background: "linear-gradient(150deg, #2196E8 0%, #1670D4 45%, #1055B8 100%)" }}
+    >
+
+      {/* ── 배경 원형 장식 ── */}
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <div className="absolute -left-28 -top-20">
+          <svg width="380" height="380" viewBox="0 0 380 380" fill="none">
+            <circle cx="190" cy="190" r="184" stroke="rgba(255,255,255,0.12)" strokeWidth="1.2" fill="none" />
+            <circle cx="190" cy="190" r="150" stroke="rgba(255,255,255,0.07)" strokeWidth="1" fill="none" />
+          </svg>
+        </div>
+        <div className="absolute -right-16 -top-10 h-56 w-56 rounded-full blur-3xl" style={{ background: "rgba(255,255,255,0.09)" }} />
+        <div className="absolute -right-20 top-[30%]">
+          <svg width="260" height="260" viewBox="0 0 260 260" fill="none">
+            <circle cx="130" cy="130" r="125" stroke="rgba(255,255,255,0.1)" strokeWidth="1" fill="none" />
+          </svg>
+        </div>
+        <div className="absolute -left-10 top-[40%] h-40 w-40 rounded-full blur-2xl" style={{ background: "rgba(255,255,255,0.07)" }} />
+        <div className="absolute -left-20 bottom-16 h-52 w-52 rounded-full blur-3xl" style={{ background: "rgba(255,255,255,0.06)" }} />
+        <div className="absolute -right-24 bottom-8">
+          <svg width="300" height="300" viewBox="0 0 300 300" fill="none">
+            <circle cx="150" cy="150" r="144" stroke="rgba(255,255,255,0.08)" strokeWidth="1" fill="none" />
+          </svg>
+        </div>
+        <div className="absolute left-6 top-[45%] h-2.5 w-2.5 rounded-full bg-white/20" />
+        <div className="absolute right-8 top-[22%] h-2 w-2 rounded-full bg-white/15" />
+        <div className="absolute left-10 bottom-[30%] h-1.5 w-1.5 rounded-full bg-white/20" />
+      </div>
+
       {/* 대각선 그레이-흰색 도형 */}
       <div className="pointer-events-none absolute inset-0">
         <svg
@@ -27,91 +57,91 @@ export default function HeroSection() {
         </svg>
       </div>
 
-      <div className="relative mx-auto max-w-md text-center">
-        {/* 메인 헤드라인 */}
-        <h1 className="mb-3 text-4xl font-black leading-tight text-white drop-shadow-md">
-          프리드라이프
-          <br />
-          <span className="text-white/90">라이프케어(LC) 모집</span>
-        </h1>
+      {/* ── 콘텐츠: 모바일/태블릿 단일컬럼 / 데스크탑 2컬럼 ── */}
+      <div className="relative z-10 mx-auto max-w-md text-center lg:flex lg:max-w-6xl lg:items-center lg:gap-16 lg:text-left">
 
-        {/* 수수료 배지 */}
-        <div className="my-6 inline-block rounded-full bg-white/20 border border-white/40 px-5 py-2 text-sm font-bold text-white shadow-md backdrop-blur-sm">수수료 익월 즉시지급</div>
+        {/* 좌측: 텍스트 콘텐츠 */}
+        <div className="lg:flex-1">
+          {/* 메인 헤드라인 */}
+          <h1 className="mb-3 text-4xl font-black leading-tight text-white drop-shadow-md lg:text-5xl lg:leading-tight">
+            프리드라이프
+            <br />
+            <span className="text-white/90">라이프케어(LC) 모집</span>
+          </h1>
 
-        {/* 상품 타입 태그 */}
-        <div className="mb-6 flex w-full items-center justify-center divide-x divide-white/30">
-          {tags.map((item) => (
-            <span key={item.name} className="flex flex-col items-center justify-center gap-2 px-6 py-1.5 text-sm font-bold text-white">
-              <Image src={item.icon} alt={item.name} width={40} height={40} style={{ filter: "brightness(0) invert(1)" }} />
-              {item.name}
-            </span>
-          ))}
+          {/* 수수료 배지 */}
+          <div className="my-6 inline-block rounded-full bg-white/20 border border-white/40 px-5 py-2 text-sm font-bold text-white shadow-md backdrop-blur-sm">
+            수수료 익월 즉시지급
+          </div>
+
+          {/* 상품 타입 태그 */}
+          <div className="mb-6 grid grid-cols-3 divide-x divide-white/30">
+            {tags.map((item) => (
+              <span key={item.name} className="flex flex-col items-center justify-center gap-2 py-2 text-sm font-bold text-white">
+                <Image src={item.icon} alt={item.name} width={40} height={40} className="h-10 w-10" style={{ filter: "brightness(0) invert(1)" }} />
+                {item.name}
+              </span>
+            ))}
+          </div>
+
+          {/* 모바일/태블릿 전용 이미지 영역 */}
+          <div className="relative -mx-5 lg:hidden" style={{ height: "420px" }}>
+            <div className="absolute inset-0 flex items-end justify-center">
+              <Image
+                src="/images/hero-product_2.png"
+                alt="제품 배경"
+                width={900}
+                height={700}
+                className="w-full object-contain object-bottom"
+              />
+            </div>
+            <Image
+              src="/images/hero_person.png"
+              alt="히어로 인물"
+              fill
+              sizes="100vw"
+              className="object-contain object-bottom"
+            />
+          </div>
+
+          {/* 핵심 가치 요약 */}
+          <div className="mb-0 grid grid-cols-3 divide-x divide-white/20 overflow-hidden rounded-2xl bg-white shadow-md lg:mb-10">
+            {[
+              { label: "가전 확보", sub: "가입 즉시" },
+              { label: "100% 환급", sub: "납입만기 시" },
+              { label: "목적자금", sub: "계획 준비" },
+            ].map((item) => (
+              <div key={item.label} className="flex flex-col items-center gap-1 py-4">
+                <CheckIcon />
+                <span className="text-sm font-black text-primary-dark">{item.label}</span>
+                <span className="text-xs text-text-gray">{item.sub}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* 제품 + 인물 이미지 영역 */}
-        <div className="relative -mx-16" style={{ height: "480px" }}>
-          {/* 배경: 제품 이미지 */}
-          <div className="absolute inset-0 flex items-center justify-center">
+        {/* 우측: 이미지 (데스크탑 전용) */}
+        <div className="relative hidden lg:flex lg:flex-1 lg:items-end lg:self-stretch" style={{ minHeight: "560px" }}>
+          <div className="absolute inset-0 flex items-end justify-center">
             <Image
               src="/images/hero-product_2.png"
               alt="제품 배경"
-              width={900}
-              height={700}
-              className="w-full object-contain"
+              width={1000}
+              height={800}
+              className="w-full object-contain object-bottom"
             />
           </div>
-          {/* 전경: 인물 이미지 */}
           <Image
             src="/images/hero_person.png"
             alt="히어로 인물"
             fill
+            sizes="50vw"
             className="object-contain object-bottom"
           />
         </div>
 
-        {/* 핵심 가치 요약 */}
-        <div className="mb-7 rounded-2xl bg-white/80 px-4 py-3 shadow-sm">
-          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-xs font-bold text-primary-dark">
-            <span className="flex items-center gap-1 whitespace-nowrap">
-              <CheckIcon />
-              가전
-            </span>
-            <span className="text-text-gray">+</span>
-            <span className="flex items-center gap-1 whitespace-nowrap">
-              <CheckIcon />
-              환급
-            </span>
-            <span className="text-text-gray">+</span>
-            <span className="flex items-center gap-1 whitespace-nowrap">
-              <CheckIcon />
-              목적자금 준비
-            </span>
-          </div>
-          <p className="mt-1.5 text-center text-xs text-text-gray">가입 시 가전 확보 / 납입만기 100% 환급</p>
-        </div>
-
       </div>
     </section>
-  );
-}
-
-function ProductIcon({ icon, label }: { icon: string; label: string }) {
-  const icons: Record<string, string> = {
-    washer: "M6 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm4 14a3 3 0 1 0 0-6 3 3 0 0 0 0 6z",
-    fridge: "M7 2h10a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 9h10V4H7v7zm3-5v3",
-    tv: "M2 7h20v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7zm0-3h20M8 22h8",
-    chair: "M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8H6V4zm-2 8h16v2a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-2zm4 6v4m8-4v4",
-  };
-
-  return (
-    <div className="flex flex-col items-center gap-1">
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-md">
-        <svg viewBox="0 0 24 24" className="h-7 w-7 stroke-primary fill-none" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-          <path d={icons[icon]} />
-        </svg>
-      </div>
-      <span className="text-[10px] font-medium text-text-gray">{label}</span>
-    </div>
   );
 }
 

@@ -24,13 +24,14 @@ export default function CTASection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-primary-dark px-5 py-20">
+    <section className="relative overflow-hidden bg-primary-dark px-5 py-24 lg:py-32">
       {/* 은은한 가전 배경 이미지 */}
       <div className="pointer-events-none absolute inset-0 flex items-end justify-center opacity-15">
         <Image
           src="/images/hero-product_2.png"
           alt=""
           fill
+          sizes="100vw"
           className="object-contain object-bottom"
         />
       </div>
@@ -45,12 +46,12 @@ export default function CTASection() {
           <br />
           <span className="text-primary-light">라이프케어(LC)</span> 모집
         </h2>
-        <p className="mb-8 text-sm text-white/70">
+        <p className="mb-10 text-sm text-white/70">
           가전결합상조 / 순수상조 / 즉시상조 상담 가능
         </p>
 
         {/* 3가지 강점 카드 ROW */}
-        <div className="mb-8 grid grid-cols-3 gap-3">
+        <div className="mb-10 grid grid-cols-3 gap-4">
           {highlights.map((h, i) => {
             const isActive = active === i;
             return (

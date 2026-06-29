@@ -44,7 +44,7 @@ const targets: { icon: ComponentType<{ className?: string }>; title: string; des
 
 export default function TargetCustomer() {
   return (
-    <section className="relative overflow-hidden px-5 py-20" style={{ background: "linear-gradient(160deg, #c7deff 0%, #EBF4FF 50%, #f5f9ff 100%)" }}>
+    <section className="relative overflow-hidden px-5 py-24 lg:px-16 lg:py-32" style={{ background: "linear-gradient(160deg, #c7deff 0%, #EBF4FF 50%, #f5f9ff 100%)" }}>
 
       {/* ── 배경 원형 장식 (z-0, 카드 뒤) ── */}
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
@@ -110,18 +110,17 @@ export default function TargetCustomer() {
       </div>
       {/* ────────────────────────────────── */}
 
-      <div className="relative z-10 mx-auto max-w-md">
-        {/* 판매가 쉬운 이유 */}
-        <div className="mb-10">
-          <div className="mb-6 text-center">
+      {/* 모바일 / 태블릿 */}
+      <div className="relative z-10 mx-auto max-w-md lg:hidden">
+        <div className="mb-14">
+          <div className="mb-10 text-center">
             <div className="mb-2 inline-block rounded-full bg-primary px-4 py-1 text-xs font-bold text-white">프리드라이프 라이프케어 LC 모집</div>
             <h2 className="text-2xl font-black text-text-dark">판매가 쉬운 이유</h2>
             <p className="mt-1 text-sm text-text-gray">고객 스스로 원하게 되는 상품입니다</p>
           </div>
-
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             {reasons.map((r) => (
-              <div key={r.num} className="flex items-start gap-4 rounded-2xl bg-white p-4" style={{ boxShadow: "0 2px 12px rgba(27,94,191,0.08)" }}>
+              <div key={r.num} className="flex items-start gap-4 rounded-2xl bg-white p-5" style={{ boxShadow: "0 2px 12px rgba(27,94,191,0.08)" }}>
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-black text-white">{r.num}</div>
                 <div>
                   <p className="font-bold text-text-dark">{r.text}</p>
@@ -132,16 +131,14 @@ export default function TargetCustomer() {
           </div>
         </div>
 
-        {/* 이런 고객에게 추천 */}
         <div>
-          <div className="mb-6 text-center">
+          <div className="mb-10 text-center">
             <h2 className="text-2xl font-black text-text-dark">이런 고객에게 추천</h2>
             <p className="mt-1 text-sm text-text-gray">일상 속 어디서나 대화를 시작할 수 있습니다</p>
           </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             {targets.map((t) => (
-              <div key={t.title} className="flex flex-col items-center rounded-2xl bg-white p-5 text-center" style={{ boxShadow: "0 4px 20px rgba(27,94,191,0.10)" }}>
+              <div key={t.title} className="flex flex-col items-center rounded-2xl bg-white p-6 text-center" style={{ boxShadow: "0 4px 20px rgba(27,94,191,0.10)" }}>
                 <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-bg text-primary">
                   <t.icon className="h-8 w-8" />
                 </div>
@@ -151,6 +148,50 @@ export default function TargetCustomer() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* PC (lg+): 섹션별 풀너비 스택 */}
+      <div className="relative z-10 mx-auto hidden max-w-5xl lg:block">
+
+        {/* 판매가 쉬운 이유 */}
+        <div className="mb-20">
+          <div className="mb-12 text-center">
+            <div className="mb-2 inline-block rounded-full bg-primary px-4 py-1 text-xs font-bold text-white">프리드라이프 라이프케어 LC 모집</div>
+            <h2 className="text-2xl font-black text-text-dark">판매가 쉬운 이유</h2>
+            <p className="mt-1 text-sm text-text-gray">고객 스스로 원하게 되는 상품입니다</p>
+          </div>
+          <div className="grid grid-cols-4 gap-5">
+            {reasons.map((r) => (
+              <div key={r.num} className="flex flex-col gap-5 rounded-2xl bg-white p-7" style={{ boxShadow: "0 2px 12px rgba(27,94,191,0.08)" }}>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-black text-white">{r.num}</div>
+                <div>
+                  <p className="font-bold leading-snug text-text-dark">{r.text}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-text-gray">{r.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 이런 고객에게 추천 */}
+        <div>
+          <div className="mb-12 text-center">
+            <h2 className="text-2xl font-black text-text-dark">이런 고객에게 추천</h2>
+            <p className="mt-1 text-sm text-text-gray">일상 속 어디서나 대화를 시작할 수 있습니다</p>
+          </div>
+          <div className="grid grid-cols-3 gap-6">
+            {targets.map((t) => (
+              <div key={t.title} className="flex flex-col items-center rounded-2xl bg-white p-8 text-center" style={{ boxShadow: "0 4px 20px rgba(27,94,191,0.10)" }}>
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-bg text-primary">
+                  <t.icon className="h-8 w-8" />
+                </div>
+                <h3 className="mb-2 font-black text-primary leading-snug">{t.title}</h3>
+                <p className="text-sm text-text-gray leading-relaxed">{t.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

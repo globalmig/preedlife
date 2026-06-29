@@ -75,54 +75,69 @@ const slides = [
   { label: '혜택 6~10', items: allBenefits.slice(5, 10) },
 ]
 
-const DURATION = 8000
+const CARD_DURATION = 1800
 
 export default function BenefitsCarousel() {
+  const [activeCard, setActiveCard] = useState(0)
   const [activeSlide, setActiveSlide] = useState(0)
   const [animKey, setAnimKey] = useState(0)
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  const goTo = useCallback((index: number) => {
-    setActiveSlide(index)
-    setAnimKey((k) => k + 1)
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = setInterval(() => {
+      setActiveCard((prev) => {
+        const next = (prev + 1) % allBenefits.length
+        const nextSlide = next >= 5 ? 1 : 0
+        const prevSlide = prev >= 5 ? 1 : 0
+        if (nextSlide !== prevSlide) {
+          setActiveSlide(nextSlide)
+          setAnimKey((k) => k + 1)
+        }
+        return next
+      })
+    }, CARD_DURATION)
   }, [])
 
   useEffect(() => {
-    if (timerRef.current) clearTimeout(timerRef.current)
-    timerRef.current = setTimeout(() => {
-      goTo((activeSlide + 1) % slides.length)
-    }, DURATION)
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current)
-    }
-  }, [activeSlide, goTo])
+    startTimer()
+    return () => { if (timerRef.current) clearInterval(timerRef.current) }
+  }, [startTimer])
+
+  const goToSlide = useCallback((index: number) => {
+    setActiveSlide(index)
+    setActiveCard(index * 5)
+    setAnimKey((k) => k + 1)
+    startTimer()
+  }, [startTimer])
+
+  // 현재 슬라이드 내 진행 인덱스 (0~4)
+  const cardIndexInSlide = activeCard % 5
 
   return (
-    <section className="px-5 py-20" style={{ background: '#F4F7FB' }}>
-      <div className="mx-auto max-w-md">
+    <section className="px-5 py-24 lg:px-16 lg:py-32" style={{ background: '#F4F7FB' }}>
 
-        {/* 헤더 */}
-        <div className="text-center mb-6">
-          <div
-            className="mb-1 text-xs font-bold uppercase tracking-widest"
-            style={{ color: '#4A90E2' }}
-          >
-            PREED lifecare
-          </div>
-          <h2 className="text-3xl font-black" style={{ color: '#0F172A' }}>
-            고객 혜택
-          </h2>
-          <p className="mt-1 text-sm" style={{ color: '#64748B' }}>
-            가입자가 누리는 10가지 핵심 혜택
-          </p>
+      {/* 헤더 - 공통 */}
+      <div className="text-center mb-10 mx-auto max-w-md lg:max-w-none lg:mb-14">
+        <div className="mb-1 text-xs font-bold uppercase tracking-widest" style={{ color: '#4A90E2' }}>
+          PREED lifecare
         </div>
+        <h2 className="text-3xl font-black" style={{ color: '#0F172A' }}>
+          고객 혜택
+        </h2>
+        <p className="mt-1 text-sm" style={{ color: '#64748B' }}>
+          가입자가 누리는 10가지 핵심 혜택
+        </p>
+      </div>
+
+      {/* ── 모바일 / 태블릿: 캐러셀 ── */}
+      <div className="mx-auto max-w-md lg:hidden">
 
         {/* 탭 스위처 */}
         <div
           className="relative flex rounded-full bg-white p-1 mb-3"
           style={{ boxShadow: '0 2px 10px rgba(0,0,0,0.08)' }}
         >
-          {/* 슬라이딩 인디케이터 */}
           <div
             className="absolute top-1 bottom-1 rounded-full transition-transform duration-300 ease-in-out"
             style={{
@@ -135,7 +150,7 @@ export default function BenefitsCarousel() {
           {slides.map((slide, i) => (
             <button
               key={i}
-              onClick={() => goTo(i)}
+              onClick={() => goToSlide(i)}
               className="relative z-10 flex-1 py-2.5 text-sm font-bold rounded-full transition-colors duration-300"
               style={{ color: activeSlide === i ? '#FFFFFF' : '#64748B' }}
             >
@@ -144,32 +159,35 @@ export default function BenefitsCarousel() {
           ))}
         </div>
 
-        {/* 프로그레스 바 */}
-        <div
-          className="h-[3px] rounded-full mb-6 overflow-hidden"
-          style={{ background: 'rgba(27,94,191,0.12)' }}
-        >
+        {/* 프로그레스 바 — 현재 슬라이드 내 카드 단위 */}
+        <div className="h-0.75 rounded-full mb-6 overflow-hidden" style={{ background: 'rgba(27,94,191,0.12)' }}>
           <div
-            key={animKey}
+            key={`${activeSlide}-${cardIndexInSlide}`}
             className="h-full rounded-full"
             style={{
               background: '#1B5EBF',
-              animation: `benefits-progress ${DURATION}ms linear forwards`,
+              animation: `benefits-progress ${CARD_DURATION}ms linear forwards`,
             }}
           />
         </div>
 
-        {/* 슬라이드 영역 */}
-        <div className="overflow-hidden">
+        {/* 슬라이드 */}
+        <div className="overflow-hidden py-1">
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${activeSlide * 100}%)` }}
           >
             {slides.map((slide, si) => (
-              <div key={si} className="w-full shrink-0 flex flex-col gap-3">
-                {slide.items.map((b) => (
-                  <BenefitCard key={b.num} {...b} />
-                ))}
+              <div key={si} className="w-full shrink-0">
+                <div className="flex flex-col gap-4 px-1">
+                  {slide.items.map((b, idx) => (
+                    <BenefitCard
+                      key={b.num}
+                      {...b}
+                      isActive={activeCard === si * 5 + idx}
+                    />
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -180,7 +198,7 @@ export default function BenefitsCarousel() {
           {slides.map((_, i) => (
             <button
               key={i}
-              onClick={() => goTo(i)}
+              onClick={() => goToSlide(i)}
               className="h-2 rounded-full transition-all duration-300"
               style={{
                 width: activeSlide === i ? '24px' : '8px',
@@ -189,37 +207,57 @@ export default function BenefitsCarousel() {
             />
           ))}
         </div>
+      </div>
 
-        {/* 하단 CTA */}
-        <div
-          className="mt-6 rounded-2xl px-5 py-4 text-center"
-          style={{ background: '#1B5EBF' }}
-        >
-          <p className="text-base font-black text-white">
-            프리드라이프와 함께 더 큰 혜택을 누리세요!
-          </p>
-          <p className="mt-1 text-xs" style={{ color: 'rgba(255,255,255,0.72)' }}>
-            가입자 혜택 총 10가지, 빠짐없이 모두 제공합니다
-          </p>
+      {/* ── 데스크탑: 2컬럼 전체 그리드 ── */}
+      <div className="hidden lg:block mx-auto max-w-5xl">
+        <div className="grid grid-cols-2 gap-4">
+          {allBenefits.map((b, idx) => (
+            <BenefitCard key={b.num} {...b} isActive={activeCard === idx} />
+          ))}
         </div>
       </div>
+
+      {/* 하단 CTA - 공통 */}
+      <div
+        className="mt-6 rounded-2xl px-5 py-4 text-center mx-auto max-w-md lg:max-w-5xl"
+        style={{ background: '#1B5EBF' }}
+      >
+        <p className="text-base font-black text-white">
+          프리드라이프와 함께 더 큰 혜택을 누리세요!
+        </p>
+        <p className="mt-1 text-xs" style={{ color: 'rgba(255,255,255,0.72)' }}>
+          가입자 혜택 총 10가지, 빠짐없이 모두 제공합니다
+        </p>
+      </div>
+
     </section>
   )
 }
 
-function BenefitCard({ num, title, desc, highlight, icon: Icon, iconBg, iconColor }: Benefit) {
+function BenefitCard({ num, title, desc, highlight, icon: Icon, iconBg, iconColor, isActive }: Benefit & { isActive: boolean }) {
   const numStr = num < 10 ? `0${num}` : `${num}`
 
   return (
     <div
-      className="flex gap-3 rounded-2xl bg-white p-4"
-      style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.055)' }}
+      className="flex gap-3 rounded-2xl bg-white px-4 py-6"
+      style={{
+        boxShadow: isActive
+          ? `0 8px 28px rgba(0,0,0,0.10), 0 0 0 2px ${iconColor}`
+          : '0 2px 12px rgba(0,0,0,0.055)',
+        transform: isActive ? 'translateY(-2px)' : 'translateY(0)',
+        transition: 'box-shadow 0.35s ease, transform 0.35s ease',
+      }}
     >
       {/* 아이콘 */}
       <div className="shrink-0">
         <div
-          className="flex h-11 w-11 items-center justify-center rounded-xl"
-          style={{ background: iconBg }}
+          className="flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-350"
+          style={{
+            background: iconBg,
+            transform: isActive ? 'scale(1.12)' : 'scale(1)',
+            transition: 'transform 0.35s ease',
+          }}
         >
           <Icon className="h-5 w-5" style={{ color: iconColor }} />
         </div>
@@ -230,7 +268,7 @@ function BenefitCard({ num, title, desc, highlight, icon: Icon, iconBg, iconColo
         <div className="flex items-center justify-between gap-2 mb-0.5">
           <span
             className="text-[10px] font-black tracking-wider"
-            style={{ color: 'rgba(27,94,191,0.35)' }}
+            style={{ color: isActive ? iconColor : 'rgba(27,94,191,0.35)' , transition: 'color 0.35s ease' }}
           >
             {numStr}
           </span>
@@ -241,7 +279,10 @@ function BenefitCard({ num, title, desc, highlight, icon: Icon, iconBg, iconColo
             {highlight}
           </span>
         </div>
-        <h3 className="text-sm font-bold leading-snug" style={{ color: '#0F172A' }}>
+        <h3
+          className="text-sm font-bold leading-snug"
+          style={{ color: isActive ? '#0F172A' : '#0F172A' }}
+        >
           {title}
         </h3>
         <p className="mt-1 text-xs leading-relaxed" style={{ color: '#64748B' }}>

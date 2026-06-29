@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-text-dark px-5 pb-28 pt-16">
+    <footer className="bg-text-dark px-5 pb-28 pt-20">
       <div className="mx-auto max-w-md">
         {/* 로고 */}
         <div className="mb-6 border-b border-white/10 pb-6">
