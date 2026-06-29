@@ -51,12 +51,6 @@ export default function GNB() {
                 {item.label}
               </a>
             ))}
-            <a
-              href="#recruit"
-              className="rounded-full bg-primary px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-primary-dark"
-            >
-              상담 문의
-            </a>
           </nav>
 
           {/* 모바일/태블릿 햄버거 버튼 (< lg) */}
@@ -86,7 +80,7 @@ export default function GNB() {
 
         {/* 드롭다운 메뉴 */}
         <nav
-          className={`absolute left-0 right-0 top-[53px] bg-white shadow-xl transition-all duration-300 ${
+          className={`absolute left-0 right-0 top-13.25 bg-white shadow-xl transition-all duration-300 ${
             open ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'
           }`}
         >
@@ -101,15 +95,6 @@ export default function GNB() {
               {item.label}
             </a>
           ))}
-          <div className="px-6 py-4">
-            <a
-              href="#recruit"
-              className="block w-full rounded-full bg-primary py-3 text-center text-sm font-bold text-white"
-              onClick={() => setOpen(false)}
-            >
-              상담 문의
-            </a>
-          </div>
         </nav>
       </div>
     </>
