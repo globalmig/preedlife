@@ -28,7 +28,6 @@ function PriceRow({ product, price }: { product: string; price: string }) {
 export default function CommissionSection() {
   return (
     <section className="relative overflow-hidden bg-white px-5 py-24 lg:px-16 lg:py-32">
-
       {/* ── 배경 글로우 원형 장식 ── */}
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute -left-20 -top-16 h-72 w-72 rounded-full blur-3xl" style={{ background: "rgba(96,165,250,0.07)" }} />
@@ -46,33 +45,26 @@ export default function CommissionSection() {
         </div>
 
         <div className="flex flex-col gap-4 lg:flex-row">
-
           {/* 가전결합상조 */}
-          <div
-            className="flex flex-col overflow-hidden rounded-2xl lg:flex-1"
-            style={{ boxShadow: "0 4px 20px rgba(27,94,191,0.13)" }}
-          >
+          <div className="flex flex-col overflow-hidden rounded-2xl lg:flex-1" style={{ boxShadow: "0 4px 20px rgba(27,94,191,0.13)" }}>
             <div className="flex flex-row items-center justify-center gap-3 bg-primary px-4 py-3 lg:flex-col lg:py-6">
               <Image src="/icons/3d/things.png" alt="가전결합상조" width={52} height={52} className="object-contain lg:h-16 lg:w-16" />
               <span className="text-sm font-bold text-white">가전결합상조</span>
             </div>
             <div className="flex flex-1 flex-col items-center justify-center gap-2 bg-white px-5 py-5">
-              <p className="text-lg font-bold text-text-dark">프리미엄 540</p>
+              <p className="text-lg font-bold text-text-dark">프리미엄가전결합</p>
               <div className="flex items-end gap-1">
                 <span className="mb-2 text-xs text-text-gray">1구좌당</span>
                 <span className="text-[3rem] font-black leading-none text-primary">30만</span>
               </div>
               <div className="rounded-lg bg-sky-bg px-4 py-1.5 text-sm text-text-gray whitespace-nowrap">
-                행사발생 시 추가 <span className="font-black text-primary">30만</span>
+                행사발생 시 추가 <span className="font-black text-primary">60만</span>
               </div>
             </div>
           </div>
 
           {/* 순수상조 */}
-          <div
-            className="flex flex-col overflow-hidden rounded-2xl lg:flex-1"
-            style={{ boxShadow: "0 4px 20px rgba(27,94,191,0.13)" }}
-          >
+          <div className="flex flex-col overflow-hidden rounded-2xl lg:flex-1" style={{ boxShadow: "0 4px 20px rgba(27,94,191,0.13)" }}>
             <div className="flex flex-row items-center justify-center gap-3 bg-sky-bg px-4 py-3 lg:flex-col lg:py-6">
               <Image src="/icons/3d/picture.png" alt="순수상조" width={52} height={52} className="object-contain lg:h-16 lg:w-16" />
               <span className="text-sm font-bold text-primary">순수상조</span>
@@ -90,10 +82,7 @@ export default function CommissionSection() {
           </div>
 
           {/* 즉시상조 */}
-          <div
-            className="flex flex-col overflow-hidden rounded-2xl lg:flex-1"
-            style={{ boxShadow: "0 4px 20px rgba(27,94,191,0.13)" }}
-          >
+          <div className="flex flex-col overflow-hidden rounded-2xl lg:flex-1" style={{ boxShadow: "0 4px 20px rgba(27,94,191,0.13)" }}>
             <div className="flex flex-row items-center justify-center gap-3 bg-primary px-4 py-3 lg:flex-col lg:py-6">
               <Image src="/icons/3d/clock.png" alt="즉시상조" width={52} height={52} className="object-contain lg:h-16 lg:w-16" />
               <span className="text-sm font-bold text-white">즉시상조</span>
@@ -106,7 +95,6 @@ export default function CommissionSection() {
               </div>
             </div>
           </div>
-
         </div>
 
         <div className="mt-8 rounded-2xl border border-primary/20 bg-sky-bg p-5">

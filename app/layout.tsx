@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={notoSansKR.className}>
-      <body className="min-h-full break-keep">
+      <body className="min-h-full break-keep" suppressHydrationWarning>
         {children}
         <Script src="https://www.mig-analytics.com/one/fcf46cc4-71b2-4af6-92be-9f7468e2b60c.js" strategy="afterInteractive" />
       </body>

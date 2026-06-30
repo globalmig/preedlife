@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="bg-text-dark px-5 pb-28 pt-20">
@@ -11,12 +13,12 @@ export default function Footer() {
 
         {/* 약관 링크 */}
         <div className="mb-6 flex flex-wrap gap-x-4 gap-y-2">
-          <button className="text-xs text-white/50 underline-offset-2 hover:text-white/80 hover:underline transition-colors">
+          <Link href="/privacy" className="text-xs text-white/50 underline-offset-2 hover:text-white/80 hover:underline transition-colors">
             개인정보처리방침
-          </button>
-          <button className="text-xs text-white/50 underline-offset-2 hover:text-white/80 hover:underline transition-colors">
+          </Link>
+          <Link href="/terms" className="text-xs text-white/50 underline-offset-2 hover:text-white/80 hover:underline transition-colors">
             이용약관
-          </button>
+          </Link>
         </div>
 
         {/* 하단 문구 */}
